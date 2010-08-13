@@ -1,0 +1,42 @@
+fsq-observer - A few scripts to monitor the Foursquare API & associated web URLs
+---
+Notes:
+
+Right, so this is pretty much a total kludge, and one I hope Foursquare will make obsolete soon.
+(I threw this together in an evening while hunting down an API request issue.)
+
+Basically it polls a few bits of the API and makes sure the responses are valid, and then queries
+Stashboard to figure out if the state needs to be flipped around.
+
+I'm _not_ running the tests on Google App Engine at the moment, though there's nothing that
+prevents this from being factored quickly into a RequestHandler and added to cron.yaml.
+---
+Setup:
+
+1) Go get Stashboard (http://www.stashboard.org/) and install it on Google App Engine
+2) Configure Stashboard and add in all of the services that fsq-observer will update:
+
+api-v1-test-endpoint
+api-v1-create-checkin
+api-v1-get-history
+oauth-get-request-token
+oauth-get-access-token
+web-foursquare-homepage
+web-oauth-authorization-page
+
+3) Download runner.py, and configure any needed library dependencies
+4) Gather all of the appropriate credentials from Foursquare & stashboard and add them to runner.py
+5) Configure your timed-job facility of choice to run runner.py (I just used cron on a slicehost VM)
+
+NOTE: Don't set the poll interval too low (I've started at 15 minutes), remember each poll creates
+a checkin (so polling every minute would mean 1440 checkins/day), which may not be well received
+by Foursquare.  :)
+
+---
+Useful things that could be done if I had the time:
+
+- Coverage of more of the API
+  - Including better options coverage / things like Oauth 1.1
+- Still a bit more code duplication than I'd prefer
+  - Could consider refactoring into an actual test framework, not sure if that makes sense
+
