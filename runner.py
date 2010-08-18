@@ -32,7 +32,7 @@ import httplib2
 import oauth2 as oauth
 import simplejson as json
 
-############################ Settings/Config ##################################
+### Settings/Config
 
 sleep_interval = 2
 latency_threshold = .5
@@ -61,7 +61,7 @@ token_urls_to_check = {'oauth-get-request-token': 'http://foursquare.com/oauth/r
 
 logging.basicConfig(level=logging.DEBUG)
 
-########################### Library functions #################################
+### Library functions
 
 def make_stashboard_request(partial_url, method, body_data=None):
     logging.debug('requesting stashboard url %s with method %s and data %s' % (partial_url, method, body_data))
@@ -98,7 +98,7 @@ def update_current_status(service_id, status_msg, status_id):
         "status": status_id
     })
 
-############################ Testing Helpers ##################################
+### Testing Helpers
 
 def http_check(service_id, request_url):
     logging.debug('requesting URL for basic HTTP check: %s' % request_url)
@@ -185,7 +185,7 @@ def oauth_check(service_id, request_url, method='GET', token=None, secret=None):
         else:
             raise Exception(e)
 
-############################# Status checks ###################################
+### Status checks
 
 def oauth_tokens_check(service_id, request_url):
     logging.info('RUNNING TEST: '+service_id)
@@ -312,7 +312,7 @@ def api_history_check(checkin_id):
                                     status_msg='No valid JSON could be decoded')
 
 
-########################### Main / test runner ################################
+### Main / test runner
 
 def main():
     logging.debug("Starting runner")
