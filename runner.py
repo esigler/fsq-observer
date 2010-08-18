@@ -1,4 +1,27 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+#
+# Copyright (c) 2010 Eric Sigler, esigler@gmail.com
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+#
 
 import cgi
 import time
@@ -9,7 +32,7 @@ import httplib2
 import oauth2 as oauth
 import simplejson as json
 
-# Settings/Config
+############################ Settings/Config ##################################
 
 sleep_interval = 2
 latency_threshold = .5
@@ -38,7 +61,7 @@ token_urls_to_check = {'oauth-get-request-token': 'http://foursquare.com/oauth/r
 
 logging.basicConfig(level=logging.DEBUG)
 
-# Library functions
+########################### Library functions #################################
 
 def make_stashboard_request(partial_url, method, body_data=None):
     logging.debug('requesting stashboard url %s with method %s and data %s' % (partial_url, method, body_data))
@@ -75,7 +98,7 @@ def update_current_status(service_id, status_msg, status_id):
         "status": status_id
     })
 
-# Testing Helpers
+############################ Testing Helpers ##################################
 
 def http_check(service_id, request_url):
     logging.debug('requesting URL for basic HTTP check: %s' % request_url)
@@ -162,7 +185,7 @@ def oauth_check(service_id, request_url, method='GET', token=None, secret=None):
         else:
             raise Exception(e)
 
-# Status checks
+############################# Status checks ###################################
 
 def oauth_tokens_check(service_id, request_url):
     logging.info('RUNNING TEST: '+service_id)
@@ -289,7 +312,7 @@ def api_history_check(checkin_id):
                                     status_msg='No valid JSON could be decoded')
 
 
-# Main / test runner
+########################### Main / test runner ################################
 
 def main():
     logging.debug("Starting runner")
